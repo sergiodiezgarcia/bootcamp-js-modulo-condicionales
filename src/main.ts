@@ -93,5 +93,9 @@ if (botonDameCarta instanceof HTMLButtonElement) {
   botonDameCarta.addEventListener("click", () => {
     const nuevoNumero = dameCarta();
     muestraCarta(nuevoNumero);
+    puntuacion = puntuacion + nuevoNumero;
+    muestraNumeroPuntuacion()
   });
 }
+
+
