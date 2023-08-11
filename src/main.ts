@@ -9,10 +9,16 @@ type Estado = {
   CINCO_COPAS: 5;
   SEIS_COPAS: 6;
   SIETE_COPAS: 7;
+  GAME_OVER: 7.5;
   SOTA_DE_COPAS: 0.5;
   CABALLO_DE_COPAS: 0.5;
   REY_DE_COPAS: 0.5;
 };
+
+const hasSuperadoLaPuntuacion = () => {
+  return puntuacion > MAXIMO_PUNTUACION;
+};
+
 const muestraNumeroPuntuacion = () => {
   const elementoPuntuacion = document.getElementById("puntuacion");
   if (elementoPuntuacion) {
@@ -78,6 +84,9 @@ const muestraCarta = (numerocarta: number) => {
     case 12:
       urlImagen = "./content/12-rey-copas.jpg";
       break;
+    case 7.5:
+      urlImagen = `GAME OVER te has pasado`;
+      break;
     // 10,11,12
   }
 
@@ -87,15 +96,27 @@ const muestraCarta = (numerocarta: number) => {
   }
 };
 
+const calculaPuntosDeUnaCarta = (numero: number): number => {
+  // Si el number es menor o igual 7 lospuntos es el numero
+  // si no los puntos son 0.5
+  if (numero <= 7) {
+    return numero;
+  } else {
+    return 0.5;
+  }
+};
+
 const botonDameCarta = document.getElementById("dameCarta");
 
 if (botonDameCarta instanceof HTMLButtonElement) {
   botonDameCarta.addEventListener("click", () => {
     const nuevoNumero = dameCarta();
     muestraCarta(nuevoNumero);
-    puntuacion = puntuacion + nuevoNumero;
-    muestraNumeroPuntuacion()
+    // calculaPuntosDeUnaCarta(nuevoNumber)
+    puntuacion = puntuacion + calculaPuntosDeUnaCarta(nuevoNumero);
+    muestraNumeroPuntuacion();
+    if (hasSuperadoLaPuntuacion()) {
+      alert("has superado el numero de intentos");
+    }
   });
 }
-
-
