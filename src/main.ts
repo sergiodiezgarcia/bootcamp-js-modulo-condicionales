@@ -1,20 +1,6 @@
 const MAXIMO_PUNTUACION: number = 7;
 let puntuacion: number = 0;
 
-type Estado = {
-  UNO_COPAS: 1;
-  DOS_COPAS: 2;
-  TRES_COPAS: 3;
-  CUATRO_COPAS: 4;
-  CINCO_COPAS: 5;
-  SEIS_COPAS: 6;
-  SIETE_COPAS: 7;
-  GAME_OVER: 7.5;
-  SOTA_DE_COPAS: 0.5;
-  CABALLO_DE_COPAS: 0.5;
-  REY_DE_COPAS: 0.5;
-};
-
 const hasSuperadoLaPuntuacion = () => {
   return puntuacion > MAXIMO_PUNTUACION;
 };
@@ -25,8 +11,6 @@ const muestraNumeroPuntuacion = () => {
     elementoPuntuacion.innerHTML = `${puntuacion} de ${MAXIMO_PUNTUACION}`;
   }
 };
-
-document.addEventListener("DOMContentLoaded", muestraNumeroPuntuacion);
 
 // Implementa una función que te de un número aleatorio entre 1 y 12
 // Cuando tengas esto, mira como lo refinarías para generar un numero que sea:
@@ -45,15 +29,17 @@ const dameCarta = (): number => {
   return nuevaCarta;
 };
 
-let nuevaCarta = dameCarta();
-console.log(nuevaCarta);
+const inicializaJuego = () => {
+  puntuacion = 0;
+  muestraNumeroPuntuacion();
+  dameCarta();
+};
 
-// img
-// src
-//./content/back.jpg
-const muestraCarta = (numerocarta: number) => {
+document.addEventListener("DOMContentLoaded", inicializaJuego);
+
+const dameImagenDeCarta = (numeroCarta: number) => {
   let urlImagen = "./content/back.jpg";
-  switch (numerocarta) {
+  switch (numeroCarta) {
     case 1:
       urlImagen = "./content/1-copas.jpg";
       break;
@@ -84,27 +70,28 @@ const muestraCarta = (numerocarta: number) => {
     case 12:
       urlImagen = "./content/12-rey-copas.jpg";
       break;
-    case 7.5:
-      urlImagen = `GAME OVER te has pasado`;
-      break;
-    // 10,11,12
   }
 
+  return urlImagen;
+};
+
+const asignaImagenAElementoImg = (urlImagen: string) => {
   const cartaElemento = document.getElementById("carta");
   if (cartaElemento instanceof HTMLImageElement) {
     cartaElemento.src = urlImagen;
   }
 };
 
-const calculaPuntosDeUnaCarta = (numero: number): number => {
-  // Si el number es menor o igual 7 lospuntos es el numero
-  // si no los puntos son 0.5
-  if (numero <= 7) {
-    return numero;
-  } else {
-    return 0.5;
-  }
+// img
+// src
+//./content/back.jpg
+const muestraCarta = (numerocarta: number) => {
+  const urlImagen = dameImagenDeCarta(numerocarta);
+  asignaImagenAElementoImg(urlImagen);
 };
+
+const calculaPuntosDeUnaCarta = (numero: number): number =>
+  numero <= 7 ? numero : 0.5;
 
 const botonDameCarta = document.getElementById("dameCarta");
 
@@ -117,6 +104,7 @@ if (botonDameCarta instanceof HTMLButtonElement) {
     muestraNumeroPuntuacion();
     if (hasSuperadoLaPuntuacion()) {
       alert("has superado el numero de intentos");
+      inicializaJuego();
     }
   });
 }
