@@ -33,6 +33,7 @@ const inicializaJuego = () => {
   puntuacion = 0;
   muestraNumeroPuntuacion();
   dameCarta();
+  habilitaPedirCarta(true);
 };
 
 document.addEventListener("DOMContentLoaded", inicializaJuego);
@@ -107,6 +108,13 @@ const calculaPuntosDeUnaCarta = (numero: number): number =>
   numero <= 7 ? numero : 0.5;
 
 const botonDameCarta = document.getElementById("dameCarta");
+const botonNuevaPartida = document.getElementById("nuevaPartida");
+
+if (botonNuevaPartida instanceof HTMLButtonElement) {
+  botonNuevaPartida.addEventListener("click", () => {
+    inicializaJuego();
+  });
+}
 
 if (botonDameCarta instanceof HTMLButtonElement) {
   botonDameCarta.addEventListener("click", () => {
