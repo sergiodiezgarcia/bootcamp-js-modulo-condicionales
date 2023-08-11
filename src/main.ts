@@ -90,6 +90,19 @@ const muestraCarta = (numerocarta: number) => {
   asignaImagenAElementoImg(urlImagen);
 };
 
+const habilitaPedirCarta = (habilitar: boolean) => {
+  const botonDameCarta = document.getElementById("dameCarta");
+  if (botonDameCarta instanceof HTMLButtonElement) {
+    botonDameCarta.disabled = !habilitar;
+  }
+};
+
+// añade un boto´n en el HTML que se llame nueva partida
+// este botón de primeras está ocullto
+// Crea una función que se llame habilitarBotonNuevaPartida
+// que le pasamos un boolean
+// y lop ponga a true o false
+
 const calculaPuntosDeUnaCarta = (numero: number): number =>
   numero <= 7 ? numero : 0.5;
 
@@ -104,7 +117,13 @@ if (botonDameCarta instanceof HTMLButtonElement) {
     muestraNumeroPuntuacion();
     if (hasSuperadoLaPuntuacion()) {
       alert("has superado el numero de intentos");
-      inicializaJuego();
+      // Lllanma aqui´a habilitarDameCarta(false)
+      // Llama aquí a MostarBotonNuevaPartida
+      //Cuando tengas eso, comentamos aqui el inicializaJuego
+      // Y cuando pulsen en el botón de nuevaPArtida que llame a inicializa JJuego
+
+      habilitaPedirCarta(false);
+      //inicializaJuego();
     }
   });
 }
