@@ -12,15 +12,11 @@ const muestraNumeroPuntuacion = () => {
   }
 };
 
-// Implementa una función que te de un número aleatorio entre 1 y 12
-// Cuando tengas esto, mira como lo refinarías para generar un numero que sea:
-// 1,2,3,4,5,6,7,10,11,12
 const dameCarta = (): number => {
   let nuevaCarta = 0;
   // Loq que sea con random
   nuevaCarta = Math.floor(Math.random() * 10) + 1;
 
-  // Si nuevaCarta > 7
   // nuevaCarta = nuevaCarta + 2;
   if (nuevaCarta > 7) {
     nuevaCarta = nuevaCarta + 2;
@@ -83,9 +79,6 @@ const asignaImagenAElementoImg = (urlImagen: string) => {
   }
 };
 
-// img
-// src
-//./content/back.jpg
 const muestraCarta = (numerocarta: number) => {
   const urlImagen = dameImagenDeCarta(numerocarta);
   asignaImagenAElementoImg(urlImagen);
@@ -97,7 +90,6 @@ const habilitaPedirCarta = (habilitar: boolean) => {
     botonDameCarta.disabled = !habilitar;
   }
 };
-
 
 const calculaPuntosDeUnaCarta = (numero: number): number =>
   numero <= 7 ? numero : 0.5;
@@ -116,19 +108,13 @@ if (botonDameCarta instanceof HTMLButtonElement) {
   botonDameCarta.addEventListener("click", () => {
     const nuevoNumero = dameCarta();
     muestraCarta(nuevoNumero);
-    // calculaPuntosDeUnaCarta(nuevoNumber)
     puntuacion = puntuacion + calculaPuntosDeUnaCarta(nuevoNumero);
     muestraNumeroPuntuacion();
     if (hasSuperadoLaPuntuacion()) {
       alert("has superado el numero de intentos");
-      // Lllanma aqui´a habilitarDameCarta(false)
-      // Llama aquí a MostarBotonNuevaPartida
-      //Cuando tengas eso, comentamos aqui el inicializaJuego
-      // Y cuando pulsen en el botón de nuevaPArtida que llame a inicializa JJuego
 
       habilitaPedirCarta(false);
       habilitarBotonMePlanto(false);
-      //inicializaJuego();
     }
   });
 }
@@ -147,12 +133,10 @@ const mensajeMePlanto = (puntacion: number): string => {
     return "Parece que no has entendido el juego";
   }
 
-  // Si entre 2 y 4
-  if (puntuacion > 2 && puntacion < 4) {
+  if (puntuacion >= 2 && puntacion < 4) {
     return "Parece que no has entendido el juego";
   }
-  // Si entre 4 y 6
-  if (puntuacion > 4 && puntacion < 6) {
+  if (puntuacion >= 4 && puntacion < 6) {
     return "bien, parece que lo estas entendiendo";
   }
   if (puntuacion >= 6) {
@@ -161,8 +145,6 @@ const mensajeMePlanto = (puntacion: number): string => {
 
   return "error";
 };
-
-// Si > 6
 
 const botonMePlanto = document.getElementById("mePlanto");
 

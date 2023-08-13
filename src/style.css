@@ -24,7 +24,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 20;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -32,7 +32,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 4.2em;
   line-height: 1.1;
 }
 
