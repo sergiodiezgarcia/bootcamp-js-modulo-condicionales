@@ -98,11 +98,6 @@ const habilitaPedirCarta = (habilitar: boolean) => {
   }
 };
 
-// añade un boto´n en el HTML que se llame nueva partida
-// este botón de primeras está ocullto
-// Crea una función que se llame habilitarBotonNuevaPartida
-// que le pasamos un boolean
-// y lop ponga a true o false
 
 const calculaPuntosDeUnaCarta = (numero: number): number =>
   numero <= 7 ? numero : 0.5;
@@ -113,6 +108,7 @@ const botonNuevaPartida = document.getElementById("nuevaPartida");
 if (botonNuevaPartida instanceof HTMLButtonElement) {
   botonNuevaPartida.addEventListener("click", () => {
     inicializaJuego();
+    habilitarBotonMePlanto(true);
   });
 }
 
@@ -131,7 +127,48 @@ if (botonDameCarta instanceof HTMLButtonElement) {
       // Y cuando pulsen en el botón de nuevaPArtida que llame a inicializa JJuego
 
       habilitaPedirCarta(false);
+      habilitarBotonMePlanto(false);
       //inicializaJuego();
     }
+  });
+}
+
+const habilitarBotonMePlanto = (habilitar: boolean) => {
+  const botonMePlanto = document.getElementById("mePlanto");
+  if (botonMePlanto instanceof HTMLButtonElement) {
+    botonMePlanto.disabled = !habilitar;
+  }
+};
+
+const mensajeMePlanto = (puntacion: number): string => {
+  habilitaPedirCarta(false);
+  habilitarBotonMePlanto(false);
+  if (puntuacion >= 0 && puntacion < 2) {
+    return "Parece que no has entendido el juego";
+  }
+
+  // Si entre 2 y 4
+  if (puntuacion > 2 && puntacion < 4) {
+    return "Parece que no has entendido el juego";
+  }
+  // Si entre 4 y 6
+  if (puntuacion > 4 && puntacion < 6) {
+    return "bien, parece que lo estas entendiendo";
+  }
+  if (puntuacion >= 6) {
+    return "bien hecho!!";
+  }
+
+  return "error";
+};
+
+// Si > 6
+
+const botonMePlanto = document.getElementById("mePlanto");
+
+if (botonMePlanto instanceof HTMLButtonElement) {
+  botonMePlanto.addEventListener("click", () => {
+    const mensaje = mensajeMePlanto(puntuacion);
+    alert(mensaje);
   });
 }
